@@ -56,4 +56,5 @@ foreach($data in $alldata){
     Write-Host "Percentage Complete : $perc %"
 }
 $ErrorActionPreference='Continue'
+$objectSchema | Out-GridView
 $objectSchema
