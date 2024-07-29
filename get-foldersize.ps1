@@ -46,7 +46,14 @@ foreach($data in $alldata){
     # Write-Host "$sizeinmb | $mode | $name "
     $objectSchema += [PSCustomObject]@{Name = $name; mode= $mode; size="$sizeval $type"}
     $i++
-    Write-Progress -PercentComplete ($i/$count*100) -Status "Processing Items" -Activity "Please Wait !!"
+    # Write-Progress -PercentComplete ($i/$count*100) -Status "Processing Items" -Activity "Please Wait !!"
+    $perc = [math]::Round($i/$count*100, 2)
+    cls
+    Write-Host "Query is in Progress for " -NoNewline
+    Write-Host "[ $query ]" -ForegroundColor Blue -NoNewline
+    Write-Host ". Please Wait !! " -ForegroundColor Yellow
+
+    Write-Host "Percentage Complete : $perc %"
 }
 $ErrorActionPreference='Continue'
 $objectSchema
