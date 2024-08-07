@@ -36,7 +36,12 @@ $objectSchema = @()
 $i = 0
 
 $alldata | Foreach-Object -Parallel {
-    $size = (Get-ChildItem $_.FullName -Recurse -force | Measure-Object -Property Length -Sum).sum
+    # $size = (Get-ChildItem $_.FullName -Recurse -force | Measure-Object -Property Length -Sum).sum
+    if($_.Extension){
+        $size = (Get-Item $_.FullName | Measure-Object -Property Length -Sum).sum
+    } else {
+        $size = (Get-ChildItem $_.FullName -Recurse -force | Measure-Object -Property Length -Sum).sum
+    }
     $sizevalGB = [math]::Round($size / 1GB, 3) 
     $sizevalMB = [math]::Round($size / 1MB, 3) 
     $mode = $_.mode

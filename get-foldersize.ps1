@@ -39,7 +39,12 @@ $objectSchema = @()
 $i = 0
 
 foreach($data in $alldata){
-    $size = (Get-ChildItem $data.FullName -Recurse -force | Measure-Object -Property Length -Sum).sum
+    if($data.Extension){
+        $size = (Get-Item $data.FullName | Measure-Object -Property Length -Sum).sum
+    } else {
+        $size = (Get-ChildItem $data.FullName -Recurse -force | Measure-Object -Property Length -Sum).sum
+    }
+    
     $sizeval = [math]::Round($size / $SizeType, 2)
     $mode = $data.mode
     $name = $data.Name
